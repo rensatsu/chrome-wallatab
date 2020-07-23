@@ -13,10 +13,18 @@ Install for Chrome: <https://chrome.google.com/webstore/detail/gcmoighfngkbamccl
 | - | - |
 | ![Screenshot 1][screen1] | ![Screenshot 2][screen2] |
 
-[screen1]: chrome_store/scr1.png
-[screen2]: chrome_store/scr2.png
-
 ## Images Credits
 
-Author of each image is shown in the bottom-right corner of the browser. List
-of all authors is available [here](src/js/ntp.js#L6).
+Images included with the extension by [Nathan Anderson][img-author]
+on [Unsplash][img-source]. [Image license][img-license].
+
+## Source Code License
+
+[MIT License][src-license]
+
+[screen1]: chrome_store/scr1.png
+[screen2]: chrome_store/scr2.png
+[src-license]: ./LICENSE
+[img-author]: https://unsplash.com/@nathananderson
+[img-source]: https://unsplash.com/
+[img-license]: https://unsplash.com/license
