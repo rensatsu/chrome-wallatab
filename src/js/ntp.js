@@ -28,7 +28,7 @@
     elemImage.classList.add("fs");
     elemImage.id = "image";
 
-    elemImage.addEventListener("error", () => requestWallpaper());
+    elemImage.addEventListener("error", () => fetchWallpaper());
 
     elemOverlay = document.createElement("div");
     elemOverlay.classList.add("fs");
