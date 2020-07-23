@@ -1,9 +1,9 @@
 # Link Home Page
 
-Replace new tab page with randomly changing wallpapers.
+Replace New Tab Page with a wallpaper of your own choice.
 
 This extension allows you to simplify your New Tab Page.
-No speed dial, no text, no distractions. Only wallpaper you've chosen.
+There is no speed dial, no clock, no other distractions. Only wallpaper you've selected.
 
 [Install for Chrome][link-chrome].
 
