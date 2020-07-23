@@ -1,0 +1,19 @@
+{
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "description": "__MSG_extDescription__",
+  "icons": {
+    "128": "img/icon.png"
+  },
+  "manifest_version": 2,
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
+  "default_locale": "en",
+  "version": "4.0.0",
+  "permissions": ["storage", "unlimitedStorage"],
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": false
+  }
+}

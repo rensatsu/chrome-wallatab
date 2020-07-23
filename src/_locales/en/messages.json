@@ -1,0 +1,56 @@
+{
+  "extName": {
+    "message": "WallaTab",
+    "description": "Extension's name"
+  },
+
+  "extShortName": {
+    "message": "WallaTab",
+    "description": "Extension's short name"
+  },
+
+  "extDescription": {
+    "message": "Replace a new tab page with your own wallpaper. A new tab without distractions.",
+    "description": "Extension's description"
+  },
+
+  "ntpSourcesText": {
+    "message": "Image sources and information",
+    "description": "Link to the extension's information page and image sources"
+  },
+
+  "ntpTitle": {
+    "message": "New tab",
+    "description": "NTP Title"
+  },
+
+  "ntpCopyrightAuthor": {
+    "message": "Author: ",
+    "description": "Caption 'Author'"
+  },
+
+  "settingsBtnReset": {
+    "message": "Set default image",
+    "description": "Settings - Button 'Set default image'"
+  },
+
+  "settingsBtnSave": {
+    "message": "Save",
+    "description": "Settings - Button 'Save'"
+  },
+
+  "settingsTitle": {
+    "message": "Settings",
+    "description": "Settings - Title of the window"
+  },
+
+  "settingsSaved": {
+    "message": "Settings saved",
+    "description": "Settings - 'Settings saved' message"
+  },
+
+  "settingsLabelOverlayDarken": {
+    "message": "Darken:",
+    "description": "Settings - 'Darken:' setting label (how much image should be darkened)"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "extName": {
+    "message": "WallaTab",
+    "description": "Extension's name"
+  },
+
+  "extShortName": {
+    "message": "WallaTab",
+    "description": "Extension's short name"
+  },
+
+  "extDescription": {
+    "message": "Замена стандартной стартовой страницы на Ваше выбранное изображение. Новая вкладка, где ничего не мешает.",
+    "description": "Extension's description"
+  },
+
+  "ntpSourcesText": {
+    "message": "Источники изображений и информация",
+    "description": "Link to the extension's information page and image sources"
+  },
+
+  "ntpTitle": {
+    "message": "Новая вкладка",
+    "description": "NTP Title"
+  },
+
+  "ntpCopyrightAuthor": {
+    "message": "Автор: ",
+    "description": "Caption 'Author'"
+  },
+
+  "settingsBtnReset": {
+    "message": "Установить стандартное изображение",
+    "description": "Settings - Button 'Set to Default'"
+  },
+
+  "settingsBtnSave": {
+    "message": "Сохранить",
+    "description": "Settings - Button 'Save'"
+  },
+
+  "settingsTitle": {
+    "message": "Настройки",
+    "description": "Settings - Title of the window"
+  },
+
+  "settingsSaved": {
+    "message": "Настройки сохранены",
+    "description": "Settings - 'Settings saved' message"
+  },
+
+  "settingsLabelOverlayDarken": {
+    "message": "Затемнение:",
+    "description": "Settings - 'Darken:' setting label (how much image should be darkened)"
+  }
+}

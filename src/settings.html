@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/settings.css" />
+  </head>
+
+  <body>
+    <form id="settings" hidden>
+      <section>
+        <input type="file" id="inp-file" accept="image/*" />
+      </section>
+      <section>
+        <div id="img-preview-wrapper">
+          <img id="img-preview" hidden />
+        </div>
+      </section>
+      <section class="label-input">
+        <label for="inp-overlay-darken" id="inp-overlay-darken-label">
+          Darken:
+        </label>
+        <input type="range" min="0.0" max="1.0" step="0.1" id="inp-overlay-darken" />
+      </section>
+      <section>
+        <button type="submit" id="btn-save">Save</button>
+      </section>
+      <section>
+        <button type="button" id="btn-set-default">Set default image</button>
+      </section>
+    </form>
+    <section id="message-wrapper"></section>
+    <script src="js/storage.js"></script>
+    <script src="js/settings.js"></script>
+  </body>
+</html>
