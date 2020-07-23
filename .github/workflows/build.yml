@@ -1,0 +1,44 @@
+name: Pack extension
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    name: Pack release
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Get version
+        id: version
+        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+
+      - name: Pack code
+        working-directory: src
+        run: |
+          zip -r ../WallaTab.zip *
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+
+      - name: Upload Release Asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./WallaTab.zip
+          asset_name: WallaTab-${{ steps.version.outputs.version }}.zip
+          asset_content_type: application/zip
