@@ -6,6 +6,7 @@ This extension allows you to simplify your New Tab Page.
 There is no speed dial, no clock, no other distractions. Only wallpaper you've selected.
 
 [Install for Chrome][link-chrome].
+[Install for Firefox][link-firefox].
 
 ## Preview
 
@@ -23,6 +24,7 @@ on [Unsplash][img-source]. [Image license][img-license].
 [MIT License][src-license]
 
 [link-chrome]: https://chrome.google.com/webstore/detail/gcmoighfngkbamcclibkopgljgamjfki
+[link-firefox]: https://addons.mozilla.org/firefox/addon/wallatab/
 [screen1]: chrome_store/scr1.png
 [screen2]: chrome_store/scr2.png
 [src-license]: ./LICENSE
