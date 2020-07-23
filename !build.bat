@@ -1,5 +1,5 @@
 @echo off
-set ex_filename="Link Home Page.zip"
+set ex_filename="WallaTab.zip"
 
 :main
 cd /D %~dp0
