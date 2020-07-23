@@ -1,5 +1,6 @@
 const settingsForm = document.getElementById("settings");
 const inpFile = document.getElementById("inp-file");
+const inpFileLabel = document.getElementById("inp-file-label");
 const inpOverlayDarken = document.getElementById("inp-overlay-darken");
 const inpOverlayDarkenLabel = document.getElementById(
   "inp-overlay-darken-label"
@@ -103,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   inpOverlayDarkenLabel.textContent = chrome.i18n.getMessage(
     "settingsLabelOverlayDarken"
   );
+  inpFileLabel.textContent = chrome.i18n.getMessage("settingsLabelFile");
 });
 
 settingsForm.addEventListener("submit", function (e) {

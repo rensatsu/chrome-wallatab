@@ -1,12 +1,19 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   -webkit-user-select: none;
   user-select: none;
   overflow: auto;
   min-width: 400px;
-
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body,
+button,
+input {
+  font-family: system-ui, sans-serif;
 }
 
 #img-preview-wrapper {
@@ -51,22 +58,62 @@ form section {
 }
 
 #btn-save {
-  width: 100%;
   padding: 0.5rem;
-}
-
-#btn-set-default {
-  padding: 0.1rem 0.5rem;
-  background-color: hsl(345, 50%, 50%);
-  color: #fff;
-  border: 1px solid #ccc;
-}
-
-#btn-set-default:hover {
-  background-color: hsl(345, 50%, 40%);
 }
 
 .label-input {
   display: grid;
   grid-template-columns: 1fr 2fr;
+}
+
+.btn {
+  --btn-color-border: #aaa;
+  --btn-color-background: #eee;
+  --btn-color-font: #333;
+
+  border-radius: 2px;
+  border: 1px solid var(--btn-color-border);
+  background-color: var(--btn-color-background);
+  color: var(--btn-color-font);
+  padding: .25rem;
+
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+
+  transition: .1s border-color, .1s background-color, .1s color, .1s outline;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  --btn-color-background: #d8d8d8;
+}
+
+.btn:focus, .btn:active {
+  outline: 1px solid hsl(186, 54%, 33%, 0.5);
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+}
+
+#btn-set-default {
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-danger {
+  --btn-color-background: hsl(345, 50%, 50%);
+  --btn-color-font: #fff;
+  --btn-color-border: #ccc;
+}
+
+.btn-danger:hover {
+  --btn-color-background: hsl(345, 50%, 40%);
+}
+
+#inp-file {
+  position: absolute;
+  top: -999px;
+  pointer-events: none;
+  opacity: 0;
 }

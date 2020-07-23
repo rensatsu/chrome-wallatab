@@ -52,5 +52,10 @@
   "settingsLabelOverlayDarken": {
     "message": "Затемнение:",
     "description": "Settings - 'Darken:' setting label (how much image should be darkened)"
+  },
+
+  "settingsLabelFile": {
+    "message": "Выбрать изображение",
+    "description": "Settings - 'Choose an image' button"
   }
 }

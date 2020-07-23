@@ -15,7 +15,7 @@
 
   let initCompleted = false;
 
-  let elemImage, elemCopyright, elemOverlay;
+  let elemImage, elemCopyright, elemOverlay, elemSettingsBtn;
 
   // Control output of debug information
   // To enable:
@@ -40,7 +40,27 @@
     elemCopyright.id = "sources";
     elemCopyright.hidden = true;
 
-    document.body.append(elemImage, elemOverlay, elemCopyright);
+    elemSettingsBtn = document.createElement("button");
+    elemSettingsBtn.type = "button";
+    elemSettingsBtn.id = "btn-settings";
+    elemSettingsBtn.title = chrome.i18n.getMessage("settingsTitle");
+    elemSettingsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      chrome.runtime.openOptionsPage();
+    });
+
+    fetch(chrome.runtime.getURL("img/settings.svg"))
+      .then((d) => d.text())
+      .then((d) => {
+        elemSettingsBtn.innerHTML = d;
+      });
+
+    document.body.append(
+      elemImage,
+      elemOverlay,
+      elemCopyright,
+      elemSettingsBtn
+    );
   }
 
   function animateImage(keyframes, duration, cb) {

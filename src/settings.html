@@ -9,7 +9,10 @@
   <body>
     <form id="settings" hidden>
       <section>
-        <input type="file" id="inp-file" accept="image/*" />
+        <label for="inp-file" id="inp-file-label" class="btn btn-block" tabindex="0">
+          Choose an image
+        </label>
+        <input type="file" id="inp-file" accept="image/*" tabindex="-1" />
       </section>
       <section>
         <div id="img-preview-wrapper">
@@ -23,10 +26,10 @@
         <input type="range" min="0.0" max="1.0" step="0.1" id="inp-overlay-darken" />
       </section>
       <section>
-        <button type="submit" id="btn-save">Save</button>
+        <button type="submit" id="btn-save" class="btn btn-block">Save</button>
       </section>
       <section>
-        <button type="button" id="btn-set-default">Set default image</button>
+        <button type="button" id="btn-set-default" class="btn btn-danger">Set default image</button>
       </section>
     </form>
     <section id="message-wrapper"></section>
