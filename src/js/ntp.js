@@ -3,7 +3,7 @@
   const ANIMATION_SLOW = 250;
 
   const creditsLink =
-    "https://gitlab.com/rensatsu/ntp-wallpaper#images-credits";
+    "https://github.com/rensatsu/chrome-wallatab#images-credits";
 
   const fallbackImages = [
     {

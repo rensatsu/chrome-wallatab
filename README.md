@@ -3,9 +3,9 @@
 Replace new tab page with randomly changing wallpapers.
 
 This extension allows you to simplify your New Tab Page.
-No speed dial, no text, no settings. Only wallpaper that changes every hour.
+No speed dial, no text, no distractions. Only wallpaper you've chosen.
 
-Install for Chrome: <https://chrome.google.com/webstore/detail/gcmoighfngkbamcclibkopgljgamjfki>
+[Install for Chrome][link-chrome].
 
 ## Preview
 
@@ -22,6 +22,7 @@ on [Unsplash][img-source]. [Image license][img-license].
 
 [MIT License][src-license]
 
+[link-chrome]: https://chrome.google.com/webstore/detail/gcmoighfngkbamcclibkopgljgamjfki
 [screen1]: chrome_store/scr1.png
 [screen2]: chrome_store/scr2.png
 [src-license]: ./LICENSE
