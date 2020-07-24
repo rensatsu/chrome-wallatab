@@ -1,7 +1,6 @@
-((_) => {
+(() => {
   const LS = {
     prefix: "wntp_",
-    listeners: [],
     registeredListener: false,
 
     check: function (area) {
@@ -45,37 +44,6 @@
           resolve();
         });
       });
-    },
-
-    listen: function (area, cb, key = null) {
-      this.listeners.push({
-        area: area,
-        callback: cb,
-        key: key,
-      });
-
-      if (!this.registeredListener) {
-        this.registeredListener = true;
-
-        chrome.storage.onChanged.addListener((changes, areaName) => {
-          Object.keys(changes).forEach((cKey) => {
-            this.listeners.forEach((listener) => {
-              if (areaName !== listener.area) return;
-
-              if (
-                listener.key === null ||
-                this.prefix + listener.key === cKey
-              ) {
-                listener.callback({
-                  key: cKey,
-                  oldValue: changes[cKey].oldValue,
-                  newValue: changes[cKey].newValue,
-                });
-              }
-            });
-          });
-        });
-      }
     },
   };
 
