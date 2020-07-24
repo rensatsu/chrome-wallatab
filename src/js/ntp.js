@@ -89,14 +89,8 @@
     });
   }
 
-  async function showSourcesLink() {
-    const hideSources = parseInt(await LS.get("sync", "hideSources"));
-
-    if (hideSources !== 1) {
-      elemCopyright.hidden = false;
-    } else {
-      hideSourcesLink();
-    }
+  function showSourcesLink() {
+    elemCopyright.hidden = false;
   }
 
   function hideSourcesLink() {
