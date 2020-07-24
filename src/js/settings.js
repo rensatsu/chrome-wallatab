@@ -188,6 +188,9 @@ async function handleFile(file) {
   loadPreviewImage(img);
 }
 
+/**
+ * File selection changed
+ */
 inpFile.addEventListener("input", function (e) {
   e.preventDefault();
   if (this.files.length > 0) {
@@ -195,6 +198,9 @@ inpFile.addEventListener("input", function (e) {
   }
 });
 
+/**
+ * Reset button clicked
+ */
 btnReset.addEventListener("click", function (e) {
   e.preventDefault();
   imgPreview.hidden = true;
@@ -204,14 +210,23 @@ btnReset.addEventListener("click", function (e) {
   save();
 });
 
+/**
+ * Image preview loaded
+ */
 imgPreview.addEventListener("load", function () {
   this.hidden = false;
 });
 
+/**
+ * Image preview failed to load
+ */
 imgPreview.addEventListener("error", function () {
   this.hidden = true;
 });
 
+/**
+ * Document loaded event
+ */
 document.addEventListener("DOMContentLoaded", function () {
   const loadWall = LS.get("local", "userWallpaper");
   const loadOverlayDarken = LS.get("local", "overlayDarken");
@@ -234,6 +249,9 @@ document.addEventListener("DOMContentLoaded", function () {
   inpFileLabel.textContent = translate("settingsLabelFile");
 });
 
+/**
+ * Save button handler
+ */
 settingsForm.addEventListener("submit", function (e) {
   e.preventDefault();
   save();
