@@ -107,7 +107,7 @@ form section {
   --btn-color-border: #ccc;
 }
 
-.btn-danger:hover {
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
   --btn-color-background: hsl(345, 50%, 40%);
 }
 
