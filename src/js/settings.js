@@ -5,6 +5,8 @@ const inpOverlayDarken = document.getElementById("inp-overlay-darken");
 const inpOverlayDarkenLabel = document.getElementById(
   "inp-overlay-darken-label"
 );
+const inpOverlayBlur = document.getElementById("inp-overlay-blur");
+const inpOverlayBlurLabel = document.getElementById("inp-overlay-blur-label");
 const imgPreview = document.getElementById("img-preview");
 const btnReset = document.getElementById("btn-set-default");
 const btnSave = document.getElementById("btn-save");
@@ -53,6 +55,7 @@ async function save() {
   }
 
   await LS.set("local", "overlayDarken", inpOverlayDarken.value);
+  await LS.set("local", "overlayBlur", inpOverlayBlur.value);
 
   chrome.runtime.sendMessage({ action: "new-wallpaper" });
   new Message(chrome.i18n.getMessage("settingsSaved"));
@@ -88,12 +91,18 @@ imgPreview.addEventListener("error", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const loadWall = LS.get("local", "userWallpaper");
   const loadOverlayDarken = LS.get("local", "overlayDarken");
+  const loadOverlayBlur = LS.get("local", "overlayBlur");
 
-  Promise.all([loadWall, loadOverlayDarken]).then(([img, overlay]) => {
+  const optsReq = [loadWall, loadOverlayDarken, loadOverlayBlur];
+
+  Promise.all(optsReq).then(([img, overlay, ovBlur]) => {
     loadPreviewImage(img);
 
     if (overlay === null) overlay = 0.5;
     inpOverlayDarken.value = overlay;
+
+    if (ovBlur === null) ovBlur = 0;
+    inpOverlayBlur.value = ovBlur;
 
     settingsForm.hidden = false;
   });
@@ -103,6 +112,9 @@ document.addEventListener("DOMContentLoaded", function () {
   btnSave.textContent = chrome.i18n.getMessage("settingsBtnSave");
   inpOverlayDarkenLabel.textContent = chrome.i18n.getMessage(
     "settingsLabelOverlayDarken"
+  );
+  inpOverlayBlurLabel.textContent = chrome.i18n.getMessage(
+    "settingsLabelOverlayBlur"
   );
   inpFileLabel.textContent = chrome.i18n.getMessage("settingsLabelFile");
 });

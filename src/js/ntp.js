@@ -171,6 +171,11 @@
     if (darkenValue) {
       document.body.style.setProperty("--overlay-darken-opacity", darkenValue);
     }
+
+    const blurValue = await LS.get("local", "overlayBlur");
+    if (blurValue) {
+      document.body.style.setProperty("--overlay-blur-radius", blurValue);
+    }
   }
 
   async function setFallbackWallpaper() {
