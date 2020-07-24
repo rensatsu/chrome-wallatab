@@ -5,8 +5,10 @@ Replace New Tab Page with a wallpaper of your own choice.
 This extension allows you to simplify your New Tab Page.
 There is no speed dial, no clock, no other distractions. Only wallpaper you've selected.
 
-[Install for Chrome][link-chrome].
-[Install for Firefox][link-firefox].
+## Download
+
+* [Install for **Chrome**][link-chrome]
+* [Install for **Firefox**][link-firefox]
 
 ## Preview
 
