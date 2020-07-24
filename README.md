@@ -27,8 +27,8 @@ on [Unsplash][img-source]. [Image license][img-license].
 
 [link-chrome]: https://chrome.google.com/webstore/detail/gcmoighfngkbamcclibkopgljgamjfki
 [link-firefox]: https://addons.mozilla.org/firefox/addon/wallatab/
-[screen1]: chrome_store/scr1.png
-[screen2]: chrome_store/scr2.png
+[screen1]: ./resources/chrome/scr1.png
+[screen2]: ./resources/chrome/scr2.png
 [src-license]: ./LICENSE
 [img-author]: https://unsplash.com/@nathananderson
 [img-source]: https://unsplash.com/
