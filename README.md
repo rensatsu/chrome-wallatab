@@ -1,4 +1,4 @@
-# Link Home Page
+# WallaTab
 
 Replace New Tab Page with a wallpaper of your own choice.
 
