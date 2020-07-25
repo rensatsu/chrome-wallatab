@@ -23,23 +23,30 @@
   let isDebug = false;
   LS.get("local", "debug").then((d) => (isDebug = !!d));
 
+  /**
+   * Create and initialize required elements
+   */
   function initElements() {
+    // image
     elemImage = document.createElement("img");
     elemImage.classList.add("fs");
     elemImage.id = "image";
 
     elemImage.addEventListener("error", () => fetchWallpaper());
 
+    // overlay
     elemOverlay = document.createElement("div");
     elemOverlay.classList.add("fs");
     elemOverlay.id = "overlay";
 
+    // copyright info label
     elemCopyright = document.createElement("a");
     elemCopyright.target = "_blank";
     elemCopyright.href = "about:blank";
     elemCopyright.id = "sources";
     elemCopyright.hidden = true;
 
+    // settings button
     elemSettingsBtn = document.createElement("button");
     elemSettingsBtn.type = "button";
     elemSettingsBtn.id = "btn-settings";
@@ -49,12 +56,14 @@
       chrome.runtime.openOptionsPage();
     });
 
+    // loading an image for settings button
     fetch(chrome.runtime.getURL("img/settings.svg"))
       .then((d) => d.text())
       .then((d) => {
         elemSettingsBtn.innerHTML = d;
       });
 
+    // inserting all elements
     document.body.append(
       elemImage,
       elemOverlay,
@@ -63,6 +72,13 @@
     );
   }
 
+  /**
+   * Animation wrapper
+   *
+   * @param {Array} keyframes Keyframes array
+   * @param {Number} duration Animation diration
+   * @param {Function} cb Callback when animation finishes
+   */
   function animateImage(keyframes, duration, cb) {
     const anim = elemImage.animate(keyframes, {
       duration: duration,
@@ -73,6 +89,11 @@
     anim.addEventListener("finish", () => cb());
   }
 
+  /**
+   * Fade-in animation
+   *
+   * @returns {Promise}
+   */
   function fadeInWall() {
     return new Promise((resolve) => {
       const keyframes = [{ opacity: 0 }, { opacity: 1 }];
@@ -81,6 +102,11 @@
     });
   }
 
+  /**
+   * Fade-out animation
+   *
+   * @returns {Promise}
+   */
   function fadeOutWall() {
     return new Promise((resolve) => {
       const keyframes = [{ opacity: 1 }, { opacity: 0 }];
@@ -89,14 +115,29 @@
     });
   }
 
+  /**
+   * Show image source link
+   */
   function showSourcesLink() {
     elemCopyright.hidden = false;
   }
 
+  /**
+   * Hide image source link
+   */
   function hideSourcesLink() {
     elemCopyright.hidden = true;
   }
 
+  /**
+   * Set wallpaper image
+   *
+   * @param {object} data Image data
+   * @param {string} data.image Image link
+   * @param {boolean} data.isBlob True when a link is a blob-url
+   * @param {string|null} data.author Image author
+   * @param {string|null} data.link Image author's profile link
+   */
   async function setWall(data) {
     if (typeof data !== "object") return;
 
@@ -134,6 +175,13 @@
     setCopyright(author, link);
   }
 
+  /**
+   * Set image source link and text
+   *
+   * @param {string|null} [text=null] Image author
+   * @param {string|null} [url=null] Image author's profile link
+   * @returns
+   */
   function setCopyright(text = null, url = null) {
     if (text === null && url === null) {
       hideSourcesLink();
@@ -149,11 +197,17 @@
     showSourcesLink();
   }
 
+  /**
+   * Apply translation
+   */
   function applyLocale() {
     d.title = chrome.i18n.getMessage("ntpTitle");
     setCopyright();
   }
 
+  /**
+   * Start listener for runtime messaging
+   */
   function listenRuntimeMessage() {
     chrome.runtime.onMessage.addListener((message) => {
       if ("action" in message) {
@@ -166,6 +220,9 @@
     });
   }
 
+  /**
+   * Apply filter
+   */
   async function applyFilter() {
     const darkenValue = await LS.get("local", "overlayDarken");
     if (darkenValue) {
@@ -173,12 +230,18 @@
     }
   }
 
+  /**
+   * Set fallback image
+   */
   async function setFallbackWallpaper() {
     const wallpaper = fallbackImages[0];
     isDebug && console.log("setting fallback wallpaper", wallpaper);
     setWall(wallpaper);
   }
 
+  /**
+   * Get image from browser storage
+   */
   async function fetchWallpaper() {
     const savedWallpaper = await LS.get("local", "userWallpaper");
     if (!savedWallpaper) return setFallbackWallpaper();
@@ -194,6 +257,9 @@
     });
   }
 
+  /**
+   * Document ready event handler
+   */
   function docReady() {
     initElements();
     applyLocale();
@@ -202,12 +268,18 @@
     fetchWallpaper();
   }
 
+  /**
+   * Clean old settings
+   */
   function cleanUp() {
     LS.del("local", "lastImage");
     LS.del("local", "currentImage");
     LS.del("local", "nextUpdate");
   }
 
+  /**
+   * Document loaded event
+   */
   w.addEventListener("DOMContentLoaded", () => docReady(), {
     once: true,
     passive: true,
