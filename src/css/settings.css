@@ -6,7 +6,6 @@ body {
   -webkit-user-select: none;
   user-select: none;
   overflow: auto;
-  min-width: 400px;
   font-size: 14px;
 }
 
