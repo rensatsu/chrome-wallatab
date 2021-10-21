@@ -35,7 +35,7 @@ body,
 #overlay {
   z-index: 2;
   background: #111;
-  background: transparent radial-gradient(#333, #000);
+  background: transparent radial-gradient(#333333, #242424, #161616, #000000);
   opacity: var(--overlay-darken-opacity);
   transition: 0.25s opacity;
 }
