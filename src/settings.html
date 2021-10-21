@@ -1,39 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title></title>
     <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="css/settings.css" />
+    <script src="js/settings.js" type="module"></script>
   </head>
 
   <body>
     <form id="settings" hidden>
       <section>
-        <label for="inp-file" id="inp-file-label" class="btn btn-block" tabindex="0">
+        <label
+          for="inp-file"
+          id="inp-file-label"
+          class="btn btn-block"
+          tabindex="0"
+        >
           Choose an image
         </label>
         <input type="file" id="inp-file" accept="image/*" tabindex="-1" />
       </section>
       <section>
         <div id="img-preview-wrapper">
-          <img id="img-preview" hidden />
+          <img id="img-preview" alt="Selected image preview" hidden />
+          <label for="inp-file" id="btn-overlay-chooser"></label>
+          <button type="button" id="btn-set-default">&times;</button>
         </div>
       </section>
       <section class="label-input">
         <label for="inp-overlay-darken" id="inp-overlay-darken-label">
           Darken:
         </label>
-        <input type="range" min="0.0" max="1.0" step="0.1" id="inp-overlay-darken" />
-      </section>
-      <section>
-        <button type="submit" id="btn-save" class="btn btn-block">Save</button>
-      </section>
-      <section>
-        <button type="button" id="btn-set-default" class="btn btn-danger">Set default image</button>
+        <input
+          type="range"
+          min="0.0"
+          max="1.0"
+          step="0.1"
+          id="inp-overlay-darken"
+        />
       </section>
     </form>
     <section id="message-wrapper"></section>
-    <script src="js/storage.js"></script>
-    <script src="js/settings.js"></script>
   </body>
 </html>

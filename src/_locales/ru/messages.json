@@ -25,8 +25,14 @@
   },
 
   "ntpCopyrightAuthor": {
-    "message": "Автор: ",
-    "description": "Caption 'Author'"
+    "message": "Автор: $author$",
+    "description": "Caption 'Author'",
+    "placeholders": {
+      "author": {
+        "content": "$1",
+        "example": "Неизвестный автор"
+      }
+    }
   },
 
   "settingsBtnReset": {
@@ -34,19 +40,14 @@
     "description": "Settings - Button 'Set to Default'"
   },
 
-  "settingsBtnSave": {
-    "message": "Сохранить",
-    "description": "Settings - Button 'Save'"
-  },
-
   "settingsTitle": {
     "message": "Настройки",
     "description": "Settings - Title of the window"
   },
 
-  "settingsSaved": {
-    "message": "Настройки сохранены",
-    "description": "Settings - 'Settings saved' message"
+  "imageSaved": {
+    "message": "Изображение сохранено",
+    "description": "Settings - 'Image saved' message"
   },
 
   "settingsLabelOverlayDarken": {
@@ -62,5 +63,10 @@
   "settingsMessageOptimize": {
     "message": "Оптимизация изображения..",
     "description": "Settings - 'Optimizing image...' message (when image is too big it will be resized)"
+  },
+
+  "settingsMessageUnableToOptimize": {
+    "message": "Ошибка при оптимизации изображения",
+    "description": "Settings - 'Unable to optimize an image' message"
   }
 }

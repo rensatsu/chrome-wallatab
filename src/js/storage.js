@@ -1,51 +1,52 @@
-(() => {
-  const LS = {
-    prefix: "wntp_",
-    registeredListener: false,
+class Storage {
+  #prefix;
+  #registeredListener;
 
-    check: function (area) {
-      return typeof chrome.storage[area] !== "undefined";
-    },
+  constructor(prefix = "") {
+    this.#prefix = prefix;
+    this.#registeredListener = false;
+  }
 
-    set: function (area, key, value) {
-      return new Promise((resolve, reject) => {
-        if (!this.check(area)) {
-          reject(new Error("Unable to check for storage"));
-          return;
-        }
+  check(area) {
+    return typeof chrome.storage[area] !== "undefined";
+  }
 
-        chrome.storage[area].set({ [this.prefix + key]: value }, () =>
-          resolve()
-        );
+  set(area, key, value) {
+    return new Promise((resolve, reject) => {
+      if (!this.check(area)) {
+        reject(new Error("Unable to check for storage"));
+        return;
+      }
+
+      chrome.storage[area].set({ [this.prefix + key]: value }, () => resolve());
+    });
+  }
+
+  get(area, key) {
+    return new Promise((resolve, reject) => {
+      if (!this.check(area)) {
+        reject(new Error("Unable to check for storage"));
+        return;
+      }
+
+      chrome.storage[area].get(this.prefix + key, (result) => {
+        resolve(result[this.prefix + key] ?? null);
       });
-    },
+    });
+  }
 
-    get: function (area, key) {
-      return new Promise((resolve, reject) => {
-        if (!this.check(area)) {
-          reject(new Error("Unable to check for storage"));
-          return;
-        }
+  del(area, key) {
+    return new Promise((resolve, reject) => {
+      if (!this.check(area)) {
+        reject(new Error("Unable to check for storage"));
+        return;
+      }
 
-        chrome.storage[area].get(this.prefix + key, (result) => {
-          resolve(result[this.prefix + key] || null);
-        });
+      chrome.storage[area].remove(this.prefix + key, () => {
+        resolve();
       });
-    },
+    });
+  }
+}
 
-    del: function (area, key) {
-      return new Promise((resolve, reject) => {
-        if (!this.check(area)) {
-          reject(new Error("Unable to check for storage"));
-          return;
-        }
-
-        chrome.storage[area].remove(this.prefix + key, () => {
-          resolve();
-        });
-      });
-    },
-  };
-
-  window.LS = LS;
-})();
+export { Storage };
