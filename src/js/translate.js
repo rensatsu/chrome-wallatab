@@ -15,7 +15,7 @@ function translate(key, substitutions) {
  * @returns {string} Language code (2 letters).
  */
 function getUILanguage() {
-  return chrome.i18n.getUILanguage().replace(/(\-.*)/, "");
+  return chrome.i18n.getUILanguage().split("-")[0];
 }
 
 export { translate, getUILanguage };
