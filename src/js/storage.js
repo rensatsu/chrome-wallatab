@@ -1,10 +1,8 @@
 class Storage {
   #prefix;
-  #registeredListener;
 
   constructor(prefix = "") {
     this.#prefix = prefix;
-    this.#registeredListener = false;
   }
 
   check(area) {
