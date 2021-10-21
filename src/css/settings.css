@@ -2,49 +2,49 @@
   --color-window-background: #fff;
   --color-text: #333;
 
-  --hue-button-background: 216deg;
-  --saturation-button-background: 85%;
+  --hue-control-background: 216deg;
+  --saturation-control-background: 85%;
 
-  --lightness-button-background: 85%;
-  --lightness-button-background-hover: 90%;
-  --lightness-button-background-active: 95%;
+  --lightness-control-background: 85%;
+  --lightness-control-background-hover: 90%;
+  --lightness-control-background-active: 95%;
 
-  --lightness-button-text: 35%;
+  --lightness-control-text: 35%;
 
   --color-control-background: hsl(
-    var(--hue-button-background) var(--saturation-button-background)
-      var(--lightness-button-background)
+    var(--hue-control-background) var(--saturation-control-background)
+      var(--lightness-control-background)
   );
 
   --color-control-background-hover: hsl(
-    var(--hue-button-background) var(--saturation-button-background)
-      var(--lightness-button-background-hover)
+    var(--hue-control-background) var(--saturation-control-background)
+      var(--lightness-control-background-hover)
   );
 
   --color-control-background-active: hsl(
-    var(--hue-button-background) var(--saturation-button-background)
-      var(--lightness-button-background-active)
+    var(--hue-control-background) var(--saturation-control-background)
+      var(--lightness-control-background-active)
   );
 
   --color-control-text: hsl(
-    var(--hue-button-background) var(--saturation-button-background)
-      var(--lightness-button-text)
+    var(--hue-control-background) var(--saturation-control-background)
+      var(--lightness-control-text)
   );
 
   --color-control-border: hsl(
-    var(--hue-button-background) var(--saturation-button-background)
-      var(--lightness-button-text)
+    var(--hue-control-background) var(--saturation-control-background)
+      var(--lightness-control-text)
   );
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-window-background: hsl(216deg 20% 20%);
+    --color-window-background: hsl(var(--hue-control-background) 20% 20%);
     --color-text: #ccc;
-    --lightness-button-background: 30%;
-    --lightness-button-background-hover: 25%;
-    --lightness-button-background-active: 20%;
-    --lightness-button-text: 75%;
+    --lightness-control-background: 30%;
+    --lightness-control-background-hover: 25%;
+    --lightness-control-background-active: 20%;
+    --lightness-control-text: 75%;
   }
 }
 
