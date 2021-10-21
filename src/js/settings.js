@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
   inpOverlayDarkenLabel.textContent = translate("settingsLabelOverlayDarken");
   inpFileLabel.textContent = translate("settingsLabelFile");
   inpFileOverlayLabel.title = translate("settingsLabelFile");
+  imgPreview.alt = translate("settingsLabelImageAlt");
 });
 
 /**

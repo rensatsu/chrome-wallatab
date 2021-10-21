@@ -60,6 +60,11 @@
     "description": "Settings - 'Choose an image' button"
   },
 
+  "settingsLabelImageAlt": {
+    "message": "Предварительный просмотр выбранного изображения",
+    "description": "Settings - 'Selected image preview' (image alt text)"
+  },
+
   "settingsMessageOptimize": {
     "message": "Оптимизация изображения..",
     "description": "Settings - 'Optimizing image...' message (when image is too big it will be resized)"
