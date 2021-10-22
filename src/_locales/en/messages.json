@@ -73,5 +73,10 @@
   "settingsMessageUnableToOptimize": {
     "message": "Unable to optimize an image",
     "description": "Settings - 'Unable to optimize an image' message"
+  },
+
+  "settingsMessageUnableToValidate": {
+    "message": "Unknown image format",
+    "description": "Settings - 'Unknown image format' message appears when user selected an unsupported or corrupted image"
   }
 }

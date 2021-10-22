@@ -110,12 +110,43 @@ async function save(items = ["userWallpaper", "overlayDarken"]) {
 }
 
 /**
+ * Check if selected file is a supported and valid image.
+ *
+ * @param {Blob} file Selected file.
+ * @returns {Promise<void>} Resolves when image is valid.
+ */
+function validateImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.addEventListener("load", () => {
+      URL.revokeObjectURL(url);
+      resolve();
+    });
+
+    img.addEventListener("error", (e) => {
+      URL.revokeObjectURL(url);
+      reject(e);
+    });
+
+    img.src = url;
+  });
+}
+
+/**
  * Handle file select event.
  *
  * @param {Blob} file Selected file.
  */
 async function handleFile(file) {
   let img = null;
+
+
+  // check if file is an actual and valid image
+  await validateImage(file).catch(() => {
+    throw new Error(translate("settingsMessageUnableToValidate"));
+  });
 
   // max of [threshold, screen width]
   const optWidth = Math.max(MIN_OPTIMIZE_WIDTH, window.screen.width);
@@ -125,9 +156,8 @@ async function handleFile(file) {
     const msg = new Message(translate("settingsMessageOptimize"), 0);
     img = await resizeImage(file, optWidth).catch(() => {
       // handling exceptions during optimization
-      new Message(translate("settingsMessageUnableToOptimize"));
       msg.hide();
-      return null;
+      throw new Error(translate("settingsMessageUnableToOptimize"));
     });
 
     msg.hide();
@@ -149,7 +179,9 @@ async function handleFile(file) {
 inpFile.addEventListener("input", function (e) {
   e.preventDefault();
   if (this.files.length === 0) return;
-  handleFile(this.files[0]).then(() => (this.value = null));
+  handleFile(this.files[0])
+    .then(() => (this.value = null))
+    .catch((e) => new Message(e.message));
 });
 
 /**
