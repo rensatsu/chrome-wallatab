@@ -58,6 +58,8 @@ body {
   font-size: 14px;
   background-color: var(--color-window-background);
   color: var(--color-text);
+  height: 100vh;
+  margin: 0;
 }
 
 body,
@@ -102,6 +104,7 @@ input {
 
 form {
   max-width: 400px;
+  padding: 0.5rem;
 }
 
 form section {
