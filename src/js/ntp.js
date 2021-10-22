@@ -67,7 +67,7 @@ function animateImage(keyframes, duration) {
  * @returns {Promise<void>} Promise, which reolves when animation finishes.
  */
 async function fadeInWall() {
-  const keyframes = [{ opacity: 0 }, { opacity: 1 }];
+  const keyframes = { opacity: [0, 1] };
   return animateImage(keyframes, ANIMATION_SLOW);
 }
 
@@ -77,7 +77,7 @@ async function fadeInWall() {
  * @returns {Promise<void>} Promise, which reolves when animation finishes.
  */
 async function fadeOutWall() {
-  const keyframes = [{ opacity: 1 }, { opacity: 0 }];
+  const keyframes = { opacity: [1, 0] };
   return animateImage(keyframes, ANIMATION_FAST);
 }
 
