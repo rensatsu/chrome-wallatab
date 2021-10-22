@@ -16,7 +16,7 @@ class Storage {
         return;
       }
 
-      chrome.storage[area].set({ [this.prefix + key]: value }, () => resolve());
+      chrome.storage[area].set({ [this.#prefix + key]: value }, () => resolve());
     });
   }
 
@@ -27,8 +27,8 @@ class Storage {
         return;
       }
 
-      chrome.storage[area].get(this.prefix + key, (result) => {
-        resolve(result[this.prefix + key] ?? null);
+      chrome.storage[area].get(this.#prefix + key, (result) => {
+        resolve(result[this.#prefix + key] ?? null);
       });
     });
   }
@@ -40,7 +40,7 @@ class Storage {
         return;
       }
 
-      chrome.storage[area].remove(this.prefix + key, () => {
+      chrome.storage[area].remove(this.#prefix + key, () => {
         resolve();
       });
     });

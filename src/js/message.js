@@ -1,9 +1,15 @@
 /**
  * Notification message class.
- *
  * @class Message.
  */
 class Message {
+  /**
+   * HTML element for Message.
+   * @type {HTMLElement}
+   * @memberof Message
+   */
+  #message;
+
   /**
    * Creates a new notification message.
    * @param {string} text Notification message text.
@@ -16,7 +22,7 @@ class Message {
     message.classList.add("message");
     message.textContent = text;
 
-    this.message = message;
+    this.#message = message;
 
     if (timeout > 0) {
       setTimeout(() => this.hide(), timeout);
@@ -32,11 +38,10 @@ class Message {
 
   /**
    * Hide and remove message.
-   *
    * @memberof Message
    */
   hide() {
-    this.message.remove();
+    this.#message.remove();
   }
 }
 

@@ -11,29 +11,27 @@
 
   --lightness-control-text: 35%;
 
+  --color-hs-control: var(--hue-control-background)
+    var(--saturation-control-background);
+
   --color-control-background: hsl(
-    var(--hue-control-background) var(--saturation-control-background)
-      var(--lightness-control-background)
+    var(--color-hs-control) var(--lightness-control-background)
   );
 
   --color-control-background-hover: hsl(
-    var(--hue-control-background) var(--saturation-control-background)
-      var(--lightness-control-background-hover)
+    var(--color-hs-control) var(--lightness-control-background-hover)
   );
 
   --color-control-background-active: hsl(
-    var(--hue-control-background) var(--saturation-control-background)
-      var(--lightness-control-background-active)
+    var(--color-hs-control) var(--lightness-control-background-active)
   );
 
   --color-control-text: hsl(
-    var(--hue-control-background) var(--saturation-control-background)
-      var(--lightness-control-text)
+    var(--color-hs-control) var(--lightness-control-text)
   );
 
   --color-control-border: hsl(
-    var(--hue-control-background) var(--saturation-control-background)
-      var(--lightness-control-text)
+    var(--color-hs-control) var(--lightness-control-text)
   );
 }
 
@@ -55,7 +53,6 @@
 }
 
 body {
-  -webkit-user-select: none;
   user-select: none;
   overflow: auto;
   font-size: 14px;
@@ -176,8 +173,5 @@ form section {
 
 #btn-overlay-chooser {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
 }
