@@ -40,15 +40,9 @@ class Storage {
    * @returns {Promise<void>}
    * @memberof Storage
    */
-  set(area, key, value) {
-    return new Promise((resolve, reject) => {
-      if (!this.check(area)) {
-        reject(new Error("Unable to check for storage"));
-        return;
-      }
-
-      chrome.storage[area].set({ [this.#prefix + key]: value }, () => resolve());
-    });
+  async set(area, key, value) {
+      if (!this.check(area)) throw new Error("Unable to check for storage");
+      return chrome.storage[area].set({ [this.#prefix + key]: value });
   }
 
   /**
@@ -59,17 +53,10 @@ class Storage {
    * @returns {Promise<any|null>}
    * @memberof Storage
    */
-  get(area, key) {
-    return new Promise((resolve, reject) => {
-      if (!this.check(area)) {
-        reject(new Error("Unable to check for storage"));
-        return;
-      }
-
-      chrome.storage[area].get(this.#prefix + key, (result) => {
-        resolve(result[this.#prefix + key] ?? null);
-      });
-    });
+  async get(area, key) {
+    if (!this.check(area)) throw new Error("Unable to check for storage");
+    const result = await chrome.storage[area].get(this.#prefix + key);
+    return result?.[this.#prefix + key] ?? null;
   }
 
   /**
@@ -80,17 +67,9 @@ class Storage {
    * @returns {Promise<void>}
    * @memberof Storage
    */
-  del(area, key) {
-    return new Promise((resolve, reject) => {
-      if (!this.check(area)) {
-        reject(new Error("Unable to check for storage"));
-        return;
-      }
-
-      chrome.storage[area].remove(this.#prefix + key, () => {
-        resolve();
-      });
-    });
+  async del(area, key) {
+    if (!this.check(area)) throw new Error("Unable to check for storage");
+    return chrome.storage[area].remove(this.#prefix + key);
   }
 }
 
