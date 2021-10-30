@@ -1,12 +1,66 @@
-*, *::before, *::after {
+:root {
+  --color-window-background: #fff;
+  --color-text: #333;
+
+  --hue-control-background: 216deg;
+  --saturation-control-background: 85%;
+
+  --lightness-control-background: 85%;
+  --lightness-control-background-hover: 90%;
+  --lightness-control-background-active: 95%;
+
+  --lightness-control-text: 35%;
+
+  --color-hs-control: var(--hue-control-background)
+    var(--saturation-control-background);
+
+  --color-control-background: hsl(
+    var(--color-hs-control) var(--lightness-control-background)
+  );
+
+  --color-control-background-hover: hsl(
+    var(--color-hs-control) var(--lightness-control-background-hover)
+  );
+
+  --color-control-background-active: hsl(
+    var(--color-hs-control) var(--lightness-control-background-active)
+  );
+
+  --color-control-text: hsl(
+    var(--color-hs-control) var(--lightness-control-text)
+  );
+
+  --color-control-border: hsl(
+    var(--color-hs-control) var(--lightness-control-text)
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-window-background: hsl(var(--hue-control-background) 20% 20%);
+    --color-text: #ccc;
+    --lightness-control-background: 30%;
+    --lightness-control-background-hover: 25%;
+    --lightness-control-background-active: 20%;
+    --lightness-control-text: 75%;
+  }
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
-  -webkit-user-select: none;
   user-select: none;
   overflow: auto;
   font-size: 14px;
+  background-color: var(--color-window-background);
+  color: var(--color-text);
+  width: 400px;
+  height: 300px;
+  margin: 0;
 }
 
 body,
@@ -17,8 +71,8 @@ input {
 
 #img-preview-wrapper {
   overflow: hidden;
-  background-color: #ccc;
-  border: 1px solid #888;
+  background-color: var(--color-control-background);
+  border: 1px solid var(--color-control-border);
 
   width: 100%;
   height: 0;
@@ -43,13 +97,14 @@ input {
 }
 
 #message-wrapper .message {
-  background-color: #ccc;
-  border-top: 1px solid #888;
+  background-color: var(--color-control-background);
+  border-top: 1px solid var(--color-control-border);
+  color: var(--color-control-text);
   padding: 10px;
 }
 
 form {
-  max-width: 400px;
+  padding: 0.5rem;
 }
 
 form section {
@@ -66,29 +121,23 @@ form section {
 }
 
 .btn {
-  --btn-color-border: #aaa;
-  --btn-color-background: #eee;
-  --btn-color-font: #333;
-
   border-radius: 2px;
-  border: 1px solid var(--btn-color-border);
-  background-color: var(--btn-color-background);
-  color: var(--btn-color-font);
-  padding: .25rem;
+  border: 1px solid var(--color-control-border);
+  background-color: var(--color-control-background);
+  color: var(--color-control-text);
+  padding: 0.25rem;
 
   display: inline-block;
   text-align: center;
   cursor: pointer;
 
-  transition: .1s border-color, .1s background-color, .1s color, .1s outline;
+  transition: 0.1s border-color, 0.1s background-color, 0.1s color, 0.1s outline;
 }
 
-.btn:hover, .btn:focus, .btn:active {
-  --btn-color-background: #d8d8d8;
-}
-
-.btn:focus, .btn:active {
-  outline: 1px solid hsl(186, 54%, 33%, 0.5);
+.btn:hover,
+.btn:focus,
+.btn:active {
+  --color-control-background: var(--color-control-background-hover);
 }
 
 .btn-block {
@@ -98,16 +147,24 @@ form section {
 
 #btn-set-default {
   padding: 0.25rem 0.5rem;
+  background-color: var(--color-control-background);
+  color: var(--color-control-text);
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  border-radius: 0 0 0 5px;
+  border: 0 solid var(--color-control-border);
+  border-width: 0 0 1px 1px;
+  cursor: pointer;
 }
 
-.btn-danger {
-  --btn-color-background: hsl(345, 50%, 50%);
-  --btn-color-font: #fff;
-  --btn-color-border: #ccc;
+#btn-set-default:hover {
+  --color-control-background: var(--color-control-background-hover);
 }
 
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
-  --btn-color-background: hsl(345, 50%, 40%);
+#btn-set-default:active {
+  --color-control-background: var(--color-control-background-active);
 }
 
 #inp-file {
@@ -115,4 +172,9 @@ form section {
   top: -999px;
   pointer-events: none;
   opacity: 0;
+}
+
+#btn-overlay-chooser {
+  position: absolute;
+  inset: 0;
 }

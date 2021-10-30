@@ -25,8 +25,14 @@
   },
 
   "ntpCopyrightAuthor": {
-    "message": "Author: ",
-    "description": "Caption 'Author'"
+    "message": "Author: $author$",
+    "description": "Caption 'Author'",
+    "placeholders": {
+      "author": {
+        "content": "$1",
+        "example": "Unknown Author"
+      }
+    }
   },
 
   "settingsBtnReset": {
@@ -34,19 +40,14 @@
     "description": "Settings - Button 'Set default image'"
   },
 
-  "settingsBtnSave": {
-    "message": "Save",
-    "description": "Settings - Button 'Save'"
-  },
-
   "settingsTitle": {
     "message": "Settings",
     "description": "Settings - Title of the window"
   },
 
-  "settingsSaved": {
-    "message": "Settings saved",
-    "description": "Settings - 'Settings saved' message"
+  "imageSaved": {
+    "message": "Image saved",
+    "description": "Settings - 'Image saved' message"
   },
 
   "settingsLabelOverlayDarken": {
@@ -59,8 +60,23 @@
     "description": "Settings - 'Choose an image' button"
   },
 
+  "settingsLabelImageAlt": {
+    "message": "Selected image preview",
+    "description": "Settings - 'Selected image preview' (image alt text)"
+  },
+
   "settingsMessageOptimize": {
     "message": "Optimizing image...",
     "description": "Settings - 'Optimizing image...' message (when image is too big it will be resized)"
+  },
+
+  "settingsMessageUnableToOptimize": {
+    "message": "Unable to optimize an image",
+    "description": "Settings - 'Unable to optimize an image' message"
+  },
+
+  "settingsMessageUnableToValidate": {
+    "message": "Unknown image format",
+    "description": "Settings - 'Unknown image format' message appears when user selected an unsupported or corrupted image"
   }
 }

@@ -1,94 +1,32 @@
+import { LS } from "./ls.js";
+import { translate } from "./translate.js";
+import { Message } from "./message.js";
+import { fileToBase64 } from "./file-reader.js";
+import {
+  IMAGE_OPTIMIZE_SIZE_THRESHOLD,
+  MIN_OPTIMIZE_WIDTH,
+  OPTIMIZE_QUALITY,
+} from "./constants.js";
+
 const settingsForm = document.getElementById("settings");
 const inpFile = document.getElementById("inp-file");
 const inpFileLabel = document.getElementById("inp-file-label");
+const inpFileOverlayLabel = document.getElementById("btn-overlay-chooser");
 const inpOverlayDarken = document.getElementById("inp-overlay-darken");
 const inpOverlayDarkenLabel = document.getElementById(
   "inp-overlay-darken-label"
 );
 const imgPreview = document.getElementById("img-preview");
 const btnReset = document.getElementById("btn-set-default");
-const btnSave = document.getElementById("btn-save");
-
-const IMAGE_OPTIMIZE_SIZE_THRESHOLD = 1.5 * 1024 * 1024;
-const MIN_OPTIMIZE_WIDTH = 1920;
-const OPTIMIZE_QUALITY = 0.9;
 
 let imageData = null;
 
 /**
- * An alias for `chrome.i18n.getMessage`
+ * Resize an image file and output as Base64.
  *
- * @param {string} key Translation strinng key
- * @param {any} substitutions Substitutions
- * @returns {string}
- */
-function translate(key, substitutions) {
-  return chrome.i18n.getMessage(key, substitutions);
-}
-
-/**
- * Notification message class
- *
- * @class Message
- */
-class Message {
-  /**
-   * Creates a new notification message
-   * @param {string} text Notification message text
-   * @param {number} [timeout=3000] Timeout, 0 to disable
-   * @memberof Message
-   */
-  constructor(text, timeout = 3000) {
-    const message = document.createElement("div");
-    const messageWrapper = document.getElementById("message-wrapper");
-    message.classList.add("message");
-    message.textContent = text;
-
-    this.message = message;
-
-    if (timeout > 0) {
-      setTimeout(() => this.hide(), timeout);
-    }
-
-    message.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.hide();
-    });
-
-    messageWrapper.append(message);
-  }
-
-  /**
-   * Hide and remove message
-   *
-   * @memberof Message
-   */
-  hide() {
-    this.message.remove();
-  }
-}
-
-/**
- * Convert a file (Blob) to Base64
- *
- * @param {Blob} file File
- * @returns {string}
- */
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
-
-/**
- * Resize an image file and output as Base64
- *
- * @param {Blob} file Image file
- * @param {Number} maxWidth Max width of the output image
- * @returns {string} Base64 encoded image
+ * @param {Blob} file Image file.
+ * @param {Number} maxWidth Max width of the output image.
+ * @returns {string} Base64 encoded image.
  */
 function resizeImage(file, maxWidth) {
   return new Promise((resolve, reject) => {
@@ -139,38 +77,76 @@ function resizeImage(file, maxWidth) {
 }
 
 /**
- * Load preview image
+ * Load preview image.
  *
  * @param {string|null} [image=null]
  */
 function loadPreviewImage(image = null) {
-  imgPreview.src = image;
   imageData = image;
+  if (image === null) return;
+  imgPreview.src = image;
 }
 
 /**
- * Save settings
+ * Save settings.
+ * @param {string[]} items An array of settings items to save.
  */
-async function save() {
-  if (imageData !== null) {
-    await LS.set("local", "userWallpaper", imageData);
-  } else {
-    await LS.del("local", "userWallpaper");
+async function save(items = ["userWallpaper", "overlayDarken"]) {
+  if (items.includes("userWallpaper")) {
+    if (imageData !== null) {
+      await LS.set("local", "userWallpaper", imageData);
+    } else {
+      await LS.del("local", "userWallpaper");
+    }
+
+    new Message(translate("imageSaved"));
   }
 
-  await LS.set("local", "overlayDarken", inpOverlayDarken.value);
+  if (items.includes("overlayDarken")) {
+    await LS.set("local", "overlayDarken", inpOverlayDarken.value);
+  }
 
   chrome.runtime.sendMessage({ action: "new-wallpaper" });
-  new Message(translate("settingsSaved"));
 }
 
 /**
- * Handle file select event
+ * Check if selected file is a supported and valid image.
  *
- * @param {Blob} file Selected file
+ * @param {Blob} file Selected file.
+ * @returns {Promise<void>} Resolves when image is valid.
+ */
+function validateImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.addEventListener("load", () => {
+      URL.revokeObjectURL(url);
+      resolve();
+    });
+
+    img.addEventListener("error", (e) => {
+      URL.revokeObjectURL(url);
+      reject(e);
+    });
+
+    img.src = url;
+  });
+}
+
+/**
+ * Handle file select event.
+ *
+ * @param {Blob} file Selected file.
  */
 async function handleFile(file) {
   let img = null;
+
+
+  // check if file is an actual and valid image
+  await validateImage(file).catch(() => {
+    throw new Error(translate("settingsMessageUnableToValidate"));
+  });
 
   // max of [threshold, screen width]
   const optWidth = Math.max(MIN_OPTIMIZE_WIDTH, window.screen.width);
@@ -178,28 +154,38 @@ async function handleFile(file) {
   if (file.size > IMAGE_OPTIMIZE_SIZE_THRESHOLD) {
     // optimizing big files
     const msg = new Message(translate("settingsMessageOptimize"), 0);
-    img = await resizeImage(file, optWidth);
+    img = await resizeImage(file, optWidth).catch(() => {
+      // handling exceptions during optimization
+      msg.hide();
+      throw new Error(translate("settingsMessageUnableToOptimize"));
+    });
+
     msg.hide();
   } else {
     // not optimizing small files, only reading
     img = await fileToBase64(file);
   }
 
-  loadPreviewImage(img);
+  if (img !== null) {
+    // skip bad image
+    loadPreviewImage(img);
+    save("userWallpaper");
+  }
 }
 
 /**
- * File selection changed
+ * File selection changed.
  */
 inpFile.addEventListener("input", function (e) {
   e.preventDefault();
-  if (this.files.length > 0) {
-    handleFile(this.files[0]).then(() => (this.value = null));
-  }
+  if (this.files.length === 0) return;
+  handleFile(this.files[0])
+    .then(() => (this.value = null))
+    .catch((e) => new Message(e.message));
 });
 
 /**
- * Reset button clicked
+ * Reset button clicked.
  */
 btnReset.addEventListener("click", function (e) {
   e.preventDefault();
@@ -211,21 +197,21 @@ btnReset.addEventListener("click", function (e) {
 });
 
 /**
- * Image preview loaded
+ * Image preview loaded.
  */
 imgPreview.addEventListener("load", function () {
   this.hidden = false;
 });
 
 /**
- * Image preview failed to load
+ * Image preview failed to load.
  */
 imgPreview.addEventListener("error", function () {
   this.hidden = true;
 });
 
 /**
- * Document loaded event
+ * Document loaded event.
  */
 document.addEventListener("DOMContentLoaded", function () {
   const loadWall = LS.get("local", "userWallpaper");
@@ -243,14 +229,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // applying translations
   document.title = translate("settingsTitle");
-  btnReset.textContent = translate("settingsBtnReset");
-  btnSave.textContent = translate("settingsBtnSave");
+  btnReset.title = translate("settingsBtnReset");
   inpOverlayDarkenLabel.textContent = translate("settingsLabelOverlayDarken");
   inpFileLabel.textContent = translate("settingsLabelFile");
+  inpFileOverlayLabel.title = translate("settingsLabelFile");
+  imgPreview.alt = translate("settingsLabelImageAlt");
 });
 
 /**
- * Save button handler
+ * Overlay filter input handler.
+ */
+inpOverlayDarken.addEventListener("change", function (e) {
+  e.preventDefault();
+  save("overlayDarken");
+});
+
+/**
+ * Save button handler.
  */
 settingsForm.addEventListener("submit", function (e) {
   e.preventDefault();
