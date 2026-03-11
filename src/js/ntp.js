@@ -148,11 +148,17 @@ function setupSettingsListeners() {
     new Message("Wallpaper reset to default");
   });
 
-  // Overlay darken - saves immediately on each change
+  // Overlay darken - real-time preview in current tab
   inpOverlayDarken.addEventListener("input", function (e) {
-    // Real-time preview
     document.body.style.setProperty("--overlay-darken-opacity", this.value);
+  });
+
+  // Overlay darken - save value and notify other tabs
+  inpOverlayDarken.addEventListener("change", function (e) {
     LS.set("local", "overlayDarken", this.value);
+    try {
+      chrome.runtime.sendMessage({ action: "set-filter", name: "darken", value: this.value });
+    } catch (_) { }
   });
 
   // Apply translations
@@ -406,6 +412,9 @@ function listenRuntimeMessage() {
     switch (message?.action) {
       case "new-wallpaper":
         fetchWallpaper();
+        break;
+      case "set-filter":
+        applyFilter();
         break;
     }
   });
